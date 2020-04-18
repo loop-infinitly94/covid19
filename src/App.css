@@ -36,3 +36,81 @@
     transform: rotate(360deg);
   }
 }
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.commonCard {
+  float: left;
+  width: 28%;
+}
+
+.MuiPaper-root.MuiCard-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded {
+  width: 40%;
+  margin: 25px auto;
+  text-align: center;
+}
+
+h2.MuiTypography-root.Total.MuiTypography-h5 {
+  color: grey;
+  font-weight: bold;
+}
+
+h2.MuiTypography-root.Deaths.MuiTypography-h5 {
+  color: red;
+  font-weight: bold;
+}
+
+h2.MuiTypography-root.Recovered.MuiTypography-h5 {
+  color: green;
+  font-weight: bold;
+}
+
+.MuiTableCell-stickyHeader{
+  font-weight: bold;
+}
+
+.Cases h2,.Death h2, .Recovery h2{
+  font-weight: bold;
+}
+
+.Cases h2{
+  color: grey;
+}
+
+.Death h2{
+  color: red;
+}
+
+.Recovery h2{
+  color: green;
+}
+
+.Summary {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.MuiAutocomplete-root.MuiAutocomplete-hasClearIcon.MuiAutocomplete-hasPopupIcon {
+  float: right;
+  margin: 10px;
+}
