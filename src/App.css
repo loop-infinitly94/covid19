@@ -64,6 +64,12 @@
   text-align: center;
 }
 
+.MuiPaper-root.MuiCard-root.SummaryContianer1.jss1.MuiPaper-elevation1.MuiPaper-rounded {
+  width: 40%;
+  margin: 25px auto;
+  text-align: center;
+}
+
 h2.MuiTypography-root.Total.MuiTypography-h5 {
   color: grey;
   font-weight: bold;
