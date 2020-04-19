@@ -9,13 +9,14 @@ import CountrySelect from './search';
 
 
 const columns = [
-    { id: 'Country', label: 'Country', minWidth: 170 },
-    { id: 'TotalConfirmed', label: 'Total Cases', minWidth: 100 },
-    { id: 'NewConfirmed', label: 'New Cases', minWidth: 100 },
-    { id: 'NewDeaths', label: 'New Deaths', minWidth: 100 },
-    { id: 'TotalDeaths', label: 'Total Deaths', minWidth: 100 },
-    { id: 'NewRecovered', label: 'Newly Recovered', minWidth: 100 },
-    { id: 'TotalRecovered', label: 'Total Recovered', minWidth: 100 },
+    { id: 'country', label: 'Country', minWidth: 170 },
+    { id: 'totalCases', label: 'Total Cases', minWidth: 30 },
+    { id: 'newCases', label: 'New Cases', minWidth: 30 },
+    { id: 'activeCases', label: 'Active Cases', minWidth: 30 },
+    { id: 'criticalCases', label: 'Critical Cases', minWidth: 30 },
+    { id: 'recovered', label: 'Recovered Cases', minWidth: 30 },
+    { id: 'newDeaths', label: 'New Deaths', minWidth: 30 },
+    { id: 'totalDeaths', label: 'Total Deaths', minWidth: 30 }
     
 ];
 
@@ -45,7 +46,9 @@ class DataSection extends Component {
             countryTableRow: [],
             tableSelection: '',
             currentRow:{},
-            searchValue: ''
+            searchValue: '',
+            worldSummary: {},
+            countrySlug:[]
         }
         this.Today = new Date();
         var temp  = new Date();
@@ -57,10 +60,34 @@ class DataSection extends Component {
         
         this.setState({isLoading: true})
         
-        axios.get("https://api.covid19api.com/summary", requestOptions).then((response) => {
-            // console.log(response);
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          
+        axios.get("https://covid-193.p.rapidapi.com/countries", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "covid-193.p.rapidapi.com",
+                "x-rapidapi-key": "d57969ed8amsh05ce00a7d1d6949p1fc6d8jsn2cff508d63aa"
+            }
+        }).then((response) => {
+            console.log(response)
             if(response.status === 200){
-                this.setState({summaryData: response.data})
+                this.setState({countrySlug: response.data.response})
+            }
+        })
+        // https://bing.com/covid/data
+        axios.get("https://covid-193.p.rapidapi.com/statistics", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "covid-193.p.rapidapi.com",
+                "x-rapidapi-key": "d57969ed8amsh05ce00a7d1d6949p1fc6d8jsn2cff508d63aa"
+            }
+        }).then((response) => {
+            console.log(response);
+            if(response.status === 200){
+                this.setState({summaryData: response.data.response})
                 this.setDataForTable();
             }
         })
@@ -75,13 +102,19 @@ class DataSection extends Component {
         var self = this;
         setInterval(() => {
             // self.setState({isLoading: true})
-            axios.get("https://api.covid19api.com/summary", requestOptions).then((response) => {
-            // console.log(response);
-            if(response.status === 200){
-                self.setState({summaryData: response.data})
-                self.setDataForTable();
+            axios.get("https://covid-193.p.rapidapi.com/statistics", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "covid-193.p.rapidapi.com",
+                "x-rapidapi-key": "d57969ed8amsh05ce00a7d1d6949p1fc6d8jsn2cff508d63aa"
             }
-        })
+            }).then((response) => {
+                console.log(response);
+                if(response.status === 200){
+                    this.setState({summaryData: response.data.response})
+                    this.setDataForTable();
+                }
+            })
         }, 10 * 60 * 1000);
     }
 
@@ -101,7 +134,7 @@ class DataSection extends Component {
 
     setDataForTable(){
         var tempArray = [];
-        this.state.summaryData.Countries.map((eachCountry) => {
+        this.state.summaryData.map((eachCountry) => {
             // var largest = eachCountry;
             tempArray.push(this.createData(eachCountry))
         })
@@ -113,14 +146,36 @@ class DataSection extends Component {
 
     createData(eachData) {
         var tempObj = {};
-        for (const key in eachData) {
-            if (eachData.hasOwnProperty(key)) {
-                const element = eachData[key];
-                tempObj[key] = element
-            }
+        // console.log(eachData.cases.active)
+        // for (const key in eachData) {
+        //     if (eachData.hasOwnProperty(key)) {
+        //         const element = eachData[key];
+        //         tempObj[key] = element
+        //     }
+        // }
+        // var Country = eachData.country, NewConfirmed = eachData.NewConfirmed, TotalCases =  eachData.cases.total, NewDeaths = eachData.NewDeaths, TotalDeaths = eachData.TotalDeaths, NewRecovered = eachData.NewRecovered, TotalRecovered = eachData.TotalRecovered, slug = eachData.Slug;
+        if(eachData.country === "All"){
+            this.setState({worldSummary: eachData})
         }
-        // var Country = eachCountry.Country, NewConfirmed = eachCountry.NewConfirmed, TotalConfirmed =  eachCountry.TotalConfirmed, NewDeaths = eachCountry.NewDeaths, TotalDeaths = eachCountry.TotalDeaths, NewRecovered = eachCountry.NewRecovered, TotalRecovered = eachCountry.TotalRecovered, slug = eachCountry.Slug;
-        return tempObj;
+        var country = eachData.country;
+        var totalCases = eachData.cases.total;
+        var newCases = eachData.cases.new;
+        var activeCases = eachData.cases.active;
+        var criticalCases = eachData.cases.critical;
+        var recovered = eachData.cases.recovered;
+        var newDeaths = eachData.deaths.new === null ? '' : eachData.deaths.new;
+        var totalDeaths = eachData.deaths.total;
+
+        return {
+            country,
+            totalCases,
+            newCases,
+            activeCases,
+            criticalCases,
+            recovered,
+            newDeaths,
+            totalDeaths,
+        };
     }
 
     formatDateT(date){
@@ -145,18 +200,28 @@ class DataSection extends Component {
     getCurrentSelectedRow(row, setSelected){
         
         this.setState({tableSelection: setSelected, currentRow: row})
-        console.log(row, 'asd')
-        var Today = this.formatDateT(this.Today);
-        var Yesterday = this.formatDateT(this.Yesterday);
-        axios.get("https://api.covid19api.com/country/"+row.Slug+"/status/confirmed/live?from="+Yesterday+"&to="+Today, requestOptions).then((response) => {
-            console.log(response);
-            if(response.status === 200){
-                // self.setState({summaryData: response.data})
-                // self.setDataForTable();
-                this.setState({countryData: response.data})
-                this.buildEachCountryTable()
-            }
-        })
+        // console.log(row, 'asd')
+        // var Today = this.formatDateT(this.Today);
+        // var Yesterday = this.formatDateT(this.Yesterday);
+
+        // var currentSelected = [];
+        // this.state.countrySlug.map(slug => {
+        //     console.log(slug.Country, row.country, slug.Country.indexOf(row.country))
+        //     if(slug.Country.indexOf(row.country) > -1){
+        //         currentSelected.push(slug)
+        //     }
+        // })
+        // console.log(currentSelected, 'asd')
+
+        // axios.get("https://api.covid19api.com/country/"+row.Slug+"/status/confirmed?from="+Yesterday+"&to="+Today, requestOptions).then((response) => {
+        //     console.log(response);
+        //     if(response.status === 200){
+        //         // self.setState({summaryData: response.data})
+        //         // self.setDataForTable();
+        //         this.setState({countryData: response.data})
+        //         this.buildEachCountryTable()
+        //     }
+        // })
     }
 
     buildEachCountryTable(){
@@ -169,11 +234,11 @@ class DataSection extends Component {
     }
     
     onCloseDialog(){
-        this.setState({countryTableRow: []})
+        this.setState({countryTableRow: [], currentRow: {}})
     }
 
     onChangeSearch(value){
-        console.log(value)
+        // console.log(value)
         if(value !== null){
             this.setState({searchValue: value.label})
         }
@@ -196,7 +261,7 @@ class DataSection extends Component {
     // }
 
     componentDidUpdate(prevState, prevProps){
-        console.log(prevState, prevProps, this.state)
+        // console.log(prevState, prevProps, this.state)
         if(prevProps.searchValue !== this.state.searchValue){
             this.setState({tableRow: this.filterTable()})
         }
@@ -208,7 +273,7 @@ class DataSection extends Component {
         
         if(this.state.searchValue !== ""){
             this.state.tableRow.map((eachRow) => {
-                if(eachRow.Country.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) > -1){
+                if(eachRow.country.toLowerCase().indexOf(this.state.searchValue.toLowerCase()) > -1){
                     tempArray.push(eachRow)
                 }
             })
@@ -231,11 +296,11 @@ class DataSection extends Component {
             spinner
             text='Loading your content...'
             >
-                {this.state.countryTableRow.length > 0 ? <CountryDetails rows = {this.state.countryTableRow} columns = {countryColumn} tableSelection = {this.state.tableSelection} onCloseDialog = {this.onCloseDialog.bind(this)} currentRow = {this.state.currentRow}/> : null}
+                {Object.keys(this.state.currentRow).length > 0 ? <CountryDetails onCloseDialog = {this.onCloseDialog.bind(this)} currentRow = {this.state.currentRow} tableSelection = {this.state.tableSelection}/> : null}
                 {!this.state.isLoading ? <div className = "Container">  
-                    <WorldDetails details = {this.state.summaryData.Global}/>
-                    <CountrySelect onChangeSearch = {this.onChangeSearch.bind(this)}/>
-                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"TotalConfirmed"}/>
+                    <WorldDetails details = {this.state.worldSummary}/>
+                    <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
+                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"}/>
                 </div> : null}
             </LoadingOverlay>
         );

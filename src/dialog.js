@@ -10,7 +10,7 @@ import Draggable from 'react-draggable';
 import Typography from '@material-ui/core/Typography';
 
 
-import Table from './table'
+// import Table from './table'
 
 function PaperComponent(props) {
   return (
@@ -21,7 +21,7 @@ function PaperComponent(props) {
 }
 
 export default function DraggableDialog(props) {
-  console.log(props);
+  // console.log(props);
   const [open, setOpen] = React.useState(true);
 
   const handleClickOpen = () => {
@@ -41,33 +41,61 @@ export default function DraggableDialog(props) {
         onClose={handleClose}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
+        fullWidth = {true}
       >
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-          Country Details
+          {props.currentRow.country}
         </DialogTitle>
         <DialogContent> 
-          <div className = "Summary">
-              <Typography className={"summaryCommon"} color="textSecondary">
-                  Total Cases
-              </Typography>
-              <Typography className={"Total"} variant="h5" component="h2">
-              {props.currentRow.TotalConfirmed}
-              </Typography>
-              <Typography className={"summaryCommon"} color="textSecondary">
-              Total Deaths
-              </Typography>
-              <Typography className={"Deaths"} variant="h5" component="h2">
-              {props.currentRow.TotalDeaths}
-              </Typography>
-              <Typography className={"summaryCommon"} color="textSecondary">
-              Total Recovered
-              </Typography>
-              <Typography className={"Recovered"} variant="h5" component="h2">
-                  {props.currentRow.TotalRecovered}
-              </Typography>
-          
+          <div className = "SummaryDilaog">
+              <div className = "casescummary">
+              
+                <Typography className={"dialogP"}>
+                      Total Cases
+                  </Typography>
+                  <Typography className={"Total"} variant="h5" component="h2">
+                  {props.currentRow.totalCases}
+                  </Typography>
+                  
+              
+              
+                <Typography className={"dialogP"}>
+                  Total Deaths
+                  </Typography>
+                  <Typography className={"Deaths"} variant="h5" component="h2">
+                  {props.currentRow.totalDeaths}
+                  </Typography>
+                  
+              
+              
+              <Typography className={"dialogP"}>
+                Total Recovered
+                </Typography>
+                <Typography className={"Recovered"} variant="h5" component="h2">
+                    {props.currentRow.recovered}
+                </Typography>
+                  
+              
+              </div>
+              <div className = "deathssummary">
+              <Typography className={"dialogP"}>
+                  Newly Confirmed
+                  </Typography>
+                  <Typography className={"Total"} variant="h5" component="h2">
+                  {props.currentRow.newCases}
+                  </Typography>
+                  
+              
+              
+                <Typography className={"dialogP"}>
+                  New Deaths
+                  </Typography>
+                  <Typography className={"Deaths"} variant="h5" component="h2">
+                  {props.currentRow.newDeaths}
+                  </Typography>
+              </div>
           </div>
-          { props.rows.length > 2 ? <Table rows = {props.rows} columns = {props.columns} defaultSort = {"Cases"}/> : null}
+          {/* { props.rows.length > 2 ? <Table rows = {props.rows} columns = {props.columns} defaultSort = {"Cases"}/> : null} */}
 
         </DialogContent>
         <DialogActions>

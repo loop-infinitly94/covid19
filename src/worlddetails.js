@@ -30,57 +30,75 @@ export default function WorldDetils(props) {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div>
+    <div className = "SummaryContianer">
         <div className = "Summary">
-            <Typography className={classes.pos} color="textSecondary">
-                Total Cases
-            </Typography>
-            <Typography className={"Total"} variant="h5" component="h2">
-            {details.TotalConfirmed}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-            Total Deaths
-            </Typography>
-            <Typography className={"Deaths"} variant="h5" component="h2">
-            {details.TotalDeaths}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
+          <Card className={classes.root}>
+          <CardContent className = "Cases commonCard">
+            <Typography className={classes.pos}>
+                  Total Cases
+              </Typography>
+              <Typography className={"Total"} variant="h5" component="h2">
+              {details.cases.total}
+              </Typography>
+              
+          </CardContent>
+          <CardContent className = "Death commonCard">
+            <Typography className={classes.pos}>
+              Total Deaths
+              </Typography>
+              <Typography className={"Deaths"} variant="h5" component="h2">
+              {details.deaths.total}
+              </Typography>
+              
+          </CardContent>
+          <CardContent className = "Recovery commonCard">
+          <Typography className={classes.pos}>
             Total Recovered
             </Typography>
             <Typography className={"Recovered"} variant="h5" component="h2">
-                {details.TotalRecovered}
+                {details.cases.recovered}
             </Typography>
+              
+          </CardContent>
+          
+          </Card>
+            
+            
+            
         </div>
-        <Card className={classes.root}>
-        <CardContent className = "Cases commonCard">
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Newly Confirmed
-            </Typography>
-            <Typography variant="h5" component="h2">
-            {details.NewConfirmed}
-            </Typography>
-            
-        </CardContent>
-        <CardContent className = "Death commonCard">
-            <Typography className={classes.pos} color="textSecondary">
-            New Deaths
-            </Typography>
-            <Typography variant="h5" component="h2">
-            {details.NewDeaths}
-            </Typography>
-            
-        </CardContent>
-        <CardContent className = "Recovery commonCard">
-            <Typography className={classes.pos} color="textSecondary">
-            NewRecovered
-            </Typography>
-            <Typography variant="h5" component="h2">
-                {details.NewRecovered}
-            </Typography>
-            
-        </CardContent>
+        <div className = "summary2">
+          <Card className={classes.root}>
+          <CardContent className = "Cases commonCard">
+              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              Newly Confirmed
+              </Typography>
+              <Typography variant="h5" component="h2">
+              {details.cases.new}
+              </Typography>
+              
+          </CardContent>
+          <CardContent className = "Death commonCard">
+              <Typography className={classes.pos} color="textSecondary">
+              New Deaths
+              </Typography>
+              <Typography variant="h5" component="h2">
+              {details.deaths.new}
+              </Typography>
+              
+          </CardContent>
+          {/* <CardContent className = "Recovery commonCard">
+              <Typography className={classes.pos} color="textSecondary">
+              NewRecovered
+              </Typography>
+              <Typography variant="h5" component="h2">
+                  {details.cases.recovered}
+              </Typography>
+              
+          </CardContent> */}
+          
+          </Card>
+        </div>
         
-        </Card>
     </div>
   );
 }

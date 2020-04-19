@@ -56,7 +56,7 @@ function EnhancedTableHead(props) {
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow className = "tableRow">
         {/* <TableCell padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -71,6 +71,7 @@ function EnhancedTableHead(props) {
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
+            className = "tableCell"
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -209,11 +210,11 @@ export default function EnhancedTable(props) {
   };
 
   const handleClick = (event, row) => {
-    const selectedIndex = selected.indexOf(row.Country);
+    const selectedIndex = selected.indexOf(row.country);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, row.Country);
+      newSelected = newSelected.concat(selected, row.country);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -274,7 +275,7 @@ export default function EnhancedTable(props) {
               {stableSort(props.rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.Country);
+                  const isItemSelected = isSelected(row.country);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -286,12 +287,13 @@ export default function EnhancedTable(props) {
                       tabIndex={-1}
                       key={index}
                       selected={isItemSelected}
+                      className = "tableRow"
                     >
                       {/* <TableRow hover role="checkbox" tabIndex={-1} key={row.code}> */}
                   {props.columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell className = "tableCell" key={column.id} align={column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );

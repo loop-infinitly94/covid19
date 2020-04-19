@@ -58,11 +58,6 @@
   100% { transform: rotate(360deg); }
 }
 
-.commonCard {
-  float: left;
-  width: 28%;
-}
-
 .MuiPaper-root.MuiCard-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded {
   width: 40%;
   margin: 25px auto;
@@ -108,9 +103,57 @@ h2.MuiTypography-root.Recovered.MuiTypography-h5 {
   width: 50%;
   margin: 0 auto;
   text-align: center;
+  float: left;
 }
 
 .MuiAutocomplete-root.MuiAutocomplete-hasClearIcon.MuiAutocomplete-hasPopupIcon {
   float: right;
   margin: 10px;
+}
+
+.Container {
+  color: white;
+}
+
+div#root {
+  background: url(./backgroundimage.PNG);
+  background-color: #cccccc; /* Used if the image is unavailable */
+  
+  background-position: center; /* Center the image */
+  background-repeat: repeat; /* Do not repeat the image */
+  
+
+}
+
+.SummaryContianer {
+  width: 100%;
+  display: inline-block;
+}
+
+.summary2 {
+  width: 50%;
+  float: left;
+}
+
+.SummaryDilaog {
+  width: 100%;
+  display: inline-block;
+}
+
+.casescummary {
+  float: left;
+  width: 50%;
+}
+
+.deathssummary {
+  float: left;
+  width: 50%;
+  margin-left: 0px;
+}
+
+@media only screen and (max-width: 600px) {
+  .Summary,
+  .summary2{
+    width: 100%;
+  }
 }
