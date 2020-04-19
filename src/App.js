@@ -1,14 +1,17 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import DataSection from './datasection';
-import WorldDetials from './worlddetails';
+import RssSection from './rsssection';
 
 function App() {
   return (
     <div className="App">
-      <DataSection/>
-      {/* <WorldDetials/> */}
+      <Router>
+        <DataSection/>
+      </Router>
+      <RssSection/>
     </div>
   );
 }

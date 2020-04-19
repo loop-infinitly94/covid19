@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
@@ -21,6 +22,7 @@ import Switch from '@material-ui/core/Switch';
 // import DeleteIcon from '@material-ui/icons/Delete';
 // import FilterListIcon from '@material-ui/icons/FilterList';
 
+import * as lib from './lib'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -250,6 +252,7 @@ export default function EnhancedTable(props) {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.rows.length - page * rowsPerPage);
 
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -291,12 +294,22 @@ export default function EnhancedTable(props) {
                     >
                       {/* <TableRow hover role="checkbox" tabIndex={-1} key={row.code}> */}
                   {props.columns.map((column) => {
+                    console.log(column, 'test')
                     const value = row[column.id];
-                    return (
-                      <TableCell className = "tableCell" key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
-                      </TableCell>
-                    );
+                    if(column.id === 'country' ){
+                      return (
+                        <TableCell className = "tableCell" key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number' ? column.format((value)) : <Link to = {'/' + value}>{value}</Link> }
+                        </TableCell>
+                      );
+                    }
+                    else{
+                      return (
+                        <TableCell className = "tableCell" key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number' ? column.format((value)) :lib.numberWithCommas(value)}
+                        </TableCell>
+                      );
+                    }
                   })}
                 {/* </TableRow> */}
                     </TableRow>

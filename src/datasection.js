@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import LoadingOverlay from 'react-loading-overlay';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Table from './table';
 import WorldDetails from './worlddetails';
 import CountryDetails from './dialog';
+import CountryNormal from './countrydetailsnormal'
 import CountrySelect from './search';
-
+import { useLocation } from 'react-router-dom'
 
 const columns = [
     { id: 'country', label: 'Country', minWidth: 170 },
@@ -145,7 +147,7 @@ class DataSection extends Component {
     }
 
     createData(eachData) {
-        var tempObj = {};
+        // var tempObj = {};
         // console.log(eachData.cases.active)
         // for (const key in eachData) {
         //     if (eachData.hasOwnProperty(key)) {
@@ -200,6 +202,7 @@ class DataSection extends Component {
     getCurrentSelectedRow(row, setSelected){
         
         this.setState({tableSelection: setSelected, currentRow: row})
+        localStorage.setItem('currentRow', JSON.stringify(row))
         // console.log(row, 'asd')
         // var Today = this.formatDateT(this.Today);
         // var Yesterday = this.formatDateT(this.Yesterday);
@@ -289,19 +292,34 @@ class DataSection extends Component {
     }
 
     render() {
-        // console.log(this.state.tableRow)
+        // console.log(this.state, this.props)
+        // let location = useLocation();
+        // console.log(location.pathname);
+        // return <span>Path : {location.pathname}</span>
         return (
             <LoadingOverlay
             active={this.state.isLoading}
             spinner
             text='Loading your content...'
             >
-                {Object.keys(this.state.currentRow).length > 0 ? <CountryDetails onCloseDialog = {this.onCloseDialog.bind(this)} currentRow = {this.state.currentRow} tableSelection = {this.state.tableSelection}/> : null}
-                {!this.state.isLoading ? <div className = "Container">  
-                    <WorldDetails details = {this.state.worldSummary}/>
+
+                {/* {Object.keys(this.state.currentRow).length > 0 ? <CountryDetails onCloseDialog = {this.onCloseDialog.bind(this)} currentRow = {this.state.currentRow} tableSelection = {this.state.tableSelection}/> : null} */}
+                {!this.state.isLoading ? 
+                <div>
+                <Route exact path={'/'} render={() => { 
+                    return (<div className = "Container">
+                        <WorldDetails details = {this.state.worldSummary}/>
+                        <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
+                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"}/></div>)
+                }}/>
+                <Route exact path={window.location.pathname} render={() => {
+                    return (<div className = "Container">  
+                    <CountryNormal currentRow = {(localStorage.getItem('currentRow')) !== null ?  JSON.parse(localStorage.getItem('currentRow')) : this.state.currentRow }/>
+                    
+                    
                     <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
                     <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"}/>
-                </div> : null}
+                </div>)}} /> </div>: null}
             </LoadingOverlay>
         );
     }
