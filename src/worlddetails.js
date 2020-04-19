@@ -32,7 +32,7 @@ export default function WorldDetils(props) {
   return (
     <div className = "SummaryContianer">
         <div className = "Summary">
-          <Card className={classes.root}>
+          <Card className={'SummaryContianer1' + ' ' +classes.root}>
           <CardContent className = "Cases commonCard">
             <Typography className={classes.pos}>
                   Total Cases
@@ -67,7 +67,7 @@ export default function WorldDetils(props) {
             
         </div>
         <div className = "summary2">
-          <Card className={classes.root}>
+          <Card className={'SummaryContianer1' + ' ' +classes.root}>
           <CardContent className = "Cases commonCard">
               <Typography className={classes.title} color="textSecondary" gutterBottom>
               Newly Confirmed
