@@ -166,16 +166,16 @@ div#root {
 
 .countrySummary {
   float: unset;
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
-  display: inline-table;
+  /* display: inline-table; */
 }
 
 .summaryDate {
   background-color: white;
   color: black;
   font-weight: bold;
-  display: inline-table;
+  /* display: inline-table; */
   width: 100%;
 
 }
