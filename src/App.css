@@ -171,6 +171,13 @@ div#root {
   /* display: inline-table; */
 }
 
+.comboSelect{
+  width: 100%;
+    height: 75px;
+    /* color: white; */
+    background-color: white;
+}
+
 .summaryDate {
   background-color: white;
   color: black;

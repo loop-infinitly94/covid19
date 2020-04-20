@@ -300,7 +300,7 @@ class DataSection extends Component {
                 <div><Route exact path={'/'} render={() => { 
                     return (<div className = "Container">
                         <WorldDetails details = {this.state.worldSummary}/>
-                        <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
+                        <div className = "comboSelect"><CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/></div>
                         <div className="summaryDate">
                                 World Details
                         </div>
@@ -309,7 +309,7 @@ class DataSection extends Component {
                 <Route exact path={'/All'} render={() => { 
                     return (<div className = "Container">
                         <WorldDetails details = {this.state.worldSummary}/>
-                        <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
+                        <div className = "comboSelect"><CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/></div>
                         <div className="summaryDate">
                                 World Details
                         </div>
@@ -321,7 +321,7 @@ class DataSection extends Component {
                     <CountryNormal currentRow = {(localStorage.getItem('currentRow')) !== null ?  JSON.parse(localStorage.getItem('currentRow')) : this.state.currentRow }/>
                     
                     
-                    <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
+                    <div className = "comboSelect"><CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/></div>
                     <div className="summaryDate">
                             World Detials
                     </div>

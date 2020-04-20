@@ -5,6 +5,7 @@ import LoadingOverlay from 'react-loading-overlay';
 import * as lib from './lib'
 
 const columns = [
+    { id: 'time', label: 'Time', minWidth: 30 },
     { id: 'totalCases', label: 'Total Cases', minWidth: 30 },
     { id: 'newCases', label: 'New Cases', minWidth: 30 },
     { id: 'activeCases', label: 'Active Cases', minWidth: 30 },
@@ -12,7 +13,6 @@ const columns = [
     { id: 'recovered', label: 'Recovered Cases', minWidth: 30 },
     { id: 'newDeaths', label: 'New Deaths', minWidth: 30 },
     { id: 'totalDeaths', label: 'Total Deaths', minWidth: 30 },
-    { id: 'time', label: 'Time', minWidth: 30 }
 ];
 
 class CountryHistory extends Component {
