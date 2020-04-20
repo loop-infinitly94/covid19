@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import * as lib from './lib'
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -30,7 +32,7 @@ export default function WorldDetils(props) {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div className = "SummaryContianer">
+    <div id = "SummaryContianer" className = "SummaryContianer">
         <div className = "Summary">
           <Card className={'SummaryContianer1' + ' ' +classes.root}>
           <CardContent className = "Cases commonCard">
@@ -38,7 +40,7 @@ export default function WorldDetils(props) {
                   Total Cases
               </Typography>
               <Typography className={"Total"} variant="h5" component="h2">
-              {details.cases.total}
+              {lib.numberWithCommas(details.cases.total)}
               </Typography>
               
           </CardContent>
@@ -47,7 +49,7 @@ export default function WorldDetils(props) {
               Total Deaths
               </Typography>
               <Typography className={"Deaths"} variant="h5" component="h2">
-              {details.deaths.total}
+              {lib.numberWithCommas(details.deaths.total)}
               </Typography>
               
           </CardContent>
@@ -56,7 +58,7 @@ export default function WorldDetils(props) {
             Total Recovered
             </Typography>
             <Typography className={"Recovered"} variant="h5" component="h2">
-                {details.cases.recovered}
+                {lib.numberWithCommas(details.cases.recovered)}
             </Typography>
               
           </CardContent>

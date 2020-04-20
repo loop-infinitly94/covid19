@@ -37,6 +37,10 @@
   }
 }
 
+a {
+  color: #253862;
+}
+
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -123,13 +127,20 @@ h2.MuiTypography-root.Recovered.MuiTypography-h5 {
   color: white;
 }
 
+html,body,.App{
+  width: 100%;  
+  height: auto;
+  /* overflow: auto; */
+}
+
 div#root {
   background: url(./backgroundimage.PNG);
   background-color: #cccccc; /* Used if the image is unavailable */
   
   background-position: center; /* Center the image */
   background-repeat: repeat; /* Do not repeat the image */
-  
+  width: 100%;
+  height: 100%;
 
 }
 
@@ -153,6 +164,22 @@ div#root {
   width: 50%;
 }
 
+.countrySummary {
+  float: unset;
+  width: 50%;
+  margin: 0 auto;
+  display: inline-table;
+}
+
+.summaryDate {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  display: inline-table;
+  width: 100%;
+
+}
+
 .deathssummary {
   float: left;
   width: 50%;
@@ -173,11 +200,13 @@ div#root {
 
 .eacharticle {
   padding-top: 20px;
-    width: 31%;
+    width: 47%;
     border-bottom: 1px solid lightgrey;
     float: left;
     box-sizing: border-box;
     margin: 12px;
+    background-color: #adabab;
+    border-radius: 7px;
 }
 
 img.blogimage {
@@ -194,10 +223,33 @@ span.blogtype {
 }
 
 span.blogheading {
+    display: block;
+    padding-bottom: 7px;
+    padding-top: 6px;
+    font-weight: bold;
+    display: block;
+    /* width: 300px; */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 36px;
+    color: black;
+    /* max-height: 200px; */
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+}
+
+span.blogdescription {
+  height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* width: 10%; */
   display: block;
-  padding-bottom: 7px;
-  padding-top: 6px;
-  font-weight: bold;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 span.blogdetails {
@@ -206,6 +258,7 @@ span.blogdetails {
   color: grey;
   height: 25px;
   padding-bottom: 7px;
+  margin-top: 5px;
 }
 
 span.blogbyanddate {
@@ -227,7 +280,7 @@ span.myfeed {
   padding: 12px;
 }
 
-section.blogsection {
+.blogsection {
   display: block;
   height: 100%;
   position: relative;
@@ -236,7 +289,24 @@ section.blogsection {
 
 @media only screen and (max-width: 600px) {
   .Summary,
-  .summary2{
+  .summary2,
+  .eacharticle{
     width: 100%;
+  }
+
+  .span.blogdetails{
+    margin-top: 5px;
+  }
+
+  span.blogcomments{
+    font-size: 12px;
+  }
+
+  span.blogbyanddate{
+    font-size: 13px;
+  }
+
+  .blogpost{
+    padding: 0px;
   }
 }

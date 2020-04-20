@@ -194,7 +194,7 @@ export default function EnhancedTable(props) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(props.pagination);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -212,23 +212,14 @@ export default function EnhancedTable(props) {
   };
 
   const handleClick = (event, row) => {
+    // setSelected([]);
+    
     const selectedIndex = selected.indexOf(row.country);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, row.country);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
+      newSelected = [row.country];
+    } 
     if(props.getCurrentSelectedRow !== undefined){
       props.getCurrentSelectedRow(row, setSelected)
     }
@@ -248,7 +239,7 @@ export default function EnhancedTable(props) {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (name) => selected.length > 0 ? selected[selected.length-1].indexOf(name) !== -1 : false;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.rows.length - page * rowsPerPage);
 
@@ -294,7 +285,7 @@ export default function EnhancedTable(props) {
                     >
                       {/* <TableRow hover role="checkbox" tabIndex={-1} key={row.code}> */}
                   {props.columns.map((column) => {
-                    console.log(column, 'test')
+                    // console.log(column, 'test')
                     const value = row[column.id];
                     if(column.id === 'country' ){
                       return (
@@ -306,7 +297,7 @@ export default function EnhancedTable(props) {
                     else{
                       return (
                         <TableCell className = "tableCell" key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number' ? column.format((value)) :lib.numberWithCommas(value)}
+                          {column.format && typeof value === 'number' ? column.format((value)) : value !== null ? lib.numberWithCommas(value): value}
                         </TableCell>
                       );
                     }

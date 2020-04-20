@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import * as lib from './lib';
+import CountryHistory from './countryhistory';
 
 const useStyles = makeStyles({
     root: {
@@ -26,11 +27,21 @@ const useStyles = makeStyles({
 export default function CountryNormal(props) {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
-    console.log(props);
+    // console.log(props);
     
-    if(Object.keys(props.currentRow).length > 0)
+    if(Object.keys(props.currentRow).length > 0){
     return (
-      <div className = "SummaryContianer">
+        <div>
+         <div className = "SummaryContianer">
+           <Card className={'SummaryContianer1' + ' ' +classes.root}>
+            <CardContent className = "Cases commonCard">
+              
+                <Typography className={"Total"} variant="h5" component="h2">
+                {props.currentRow.country}
+                </Typography>
+                
+            </CardContent>
+            </Card>
           <div className = "Summary">
             <Card className={'SummaryContianer1' + ' ' +classes.root}>
             <CardContent className = "Cases commonCard">
@@ -98,9 +109,16 @@ export default function CountryNormal(props) {
             
             </Card>
           </div>
-          
+          </div>
+          <div className = "countrySummary">
+              <div className="summaryDate">
+                    Today's Update  - {props.currentRow.country}
+              </div>
+              <CountryHistory currentCountry = {props.currentRow.country}/>
+            </div>
       </div>
   );
+}
   else{
       return null
   }

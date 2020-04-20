@@ -9,6 +9,8 @@ import CountryDetails from './dialog';
 import CountryNormal from './countrydetailsnormal'
 import CountrySelect from './search';
 import { useLocation } from 'react-router-dom'
+import RssSection from './rsssection';
+
 
 const columns = [
     { id: 'country', label: 'Country', minWidth: 170 },
@@ -22,12 +24,7 @@ const columns = [
     
 ];
 
-const countryColumn = [
-    { id: 'Province', label: 'Province', minWidth: 30 },
-    { id: 'City', label: 'City', minWidth: 30 },
-    { id: 'Cases', label: 'Cases', minWidth: 30 },
-    { id: 'Date', label: 'Date', minWidth: 100 }
-];
+
 
 
 
@@ -66,6 +63,16 @@ class DataSection extends Component {
             method: 'GET',
             redirect: 'follow'
           };
+
+        // axios.get("https://covid-19-statistics.p.rapidapi.com/provinces?iso=CHN", {
+        //     "method": "GET",
+        //     "headers": {
+        //         "x-rapidapi-host": "covid-19-statistics.p.rapidapi.com",
+        //         "x-rapidapi-key": "d57969ed8amsh05ce00a7d1d6949p1fc6d8jsn2cff508d63aa"
+        //     }
+        // }).then(response => {
+        //     console.log(response)
+        // })
           
         axios.get("https://covid-193.p.rapidapi.com/countries", {
             "method": "GET",
@@ -74,7 +81,7 @@ class DataSection extends Component {
                 "x-rapidapi-key": "d57969ed8amsh05ce00a7d1d6949p1fc6d8jsn2cff508d63aa"
             }
         }).then((response) => {
-            console.log(response)
+            // console.log(response)
             if(response.status === 200){
                 this.setState({countrySlug: response.data.response})
             }
@@ -87,7 +94,7 @@ class DataSection extends Component {
                 "x-rapidapi-key": "d57969ed8amsh05ce00a7d1d6949p1fc6d8jsn2cff508d63aa"
             }
         }).then((response) => {
-            console.log(response);
+            // console.log(response);
             if(response.status === 200){
                 this.setState({summaryData: response.data.response})
                 this.setDataForTable();
@@ -180,29 +187,12 @@ class DataSection extends Component {
         };
     }
 
-    formatDateT(date){
-        var today = date;
-        var dd = today.getDate();
-
-        var mm = today.getMonth()+1; 
-        var yyyy = today.getFullYear();
-        if(dd<10) 
-        {
-            dd='0'+dd;
-        } 
-
-        if(mm<10) 
-        {
-            mm='0'+mm;
-        } 
-        return yyyy + '-' + mm + '-' + dd + "T00:00:00Z";
-        console.log(today);
-    }
-
     getCurrentSelectedRow(row, setSelected){
         
         this.setState({tableSelection: setSelected, currentRow: row})
         localStorage.setItem('currentRow', JSON.stringify(row))
+        var elmnt = document.getElementById("DataSource");
+        elmnt.scrollIntoView();
         // console.log(row, 'asd')
         // var Today = this.formatDateT(this.Today);
         // var Yesterday = this.formatDateT(this.Yesterday);
@@ -305,21 +295,40 @@ class DataSection extends Component {
 
                 {/* {Object.keys(this.state.currentRow).length > 0 ? <CountryDetails onCloseDialog = {this.onCloseDialog.bind(this)} currentRow = {this.state.currentRow} tableSelection = {this.state.tableSelection}/> : null} */}
                 {!this.state.isLoading ? 
-                <div>
-                <Route exact path={'/'} render={() => { 
+                <div id = "DataSource" >
+                {window.location.pathname === '/' ||  window.location.pathname === '/All'? 
+                <div><Route exact path={'/'} render={() => { 
                     return (<div className = "Container">
                         <WorldDetails details = {this.state.worldSummary}/>
                         <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
-                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"}/></div>)
+                        <div className="summaryDate">
+                                World Details
+                        </div>
+                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/></div>)
                 }}/>
+                <Route exact path={'/All'} render={() => { 
+                    return (<div className = "Container">
+                        <WorldDetails details = {this.state.worldSummary}/>
+                        <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
+                        <div className="summaryDate">
+                                World Details
+                        </div>
+                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/></div>)
+                }}/></div>
+                :
                 <Route exact path={window.location.pathname} render={() => {
                     return (<div className = "Container">  
                     <CountryNormal currentRow = {(localStorage.getItem('currentRow')) !== null ?  JSON.parse(localStorage.getItem('currentRow')) : this.state.currentRow }/>
                     
                     
                     <CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/>
-                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"}/>
-                </div>)}} /> </div>: null}
+                    <div className="summaryDate">
+                            World Detials
+                    </div>
+                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/>
+                </div>)}} /> }
+                <RssSection/>
+                </div>: null}
             </LoadingOverlay>
         );
     }
