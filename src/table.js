@@ -286,18 +286,21 @@ export default function EnhancedTable(props) {
                       {/* <TableRow hover role="checkbox" tabIndex={-1} key={row.code}> */}
                   {props.columns.map((column) => {
                     // console.log(column, 'test')
+                    
                     const value = row[column.id];
+                    var newCases = column.id === 'newCases' && value !== ''? ' newCasesTableCell' : '';
+                    var newDeaths = column.id === 'newDeaths' && value !== '' ? ' newDeathsTableCell' : '';
                     if(column.id === 'country' ){
                       return (
-                        <TableCell className = "tableCell" key={column.id} align={column.align}>
+                        <TableCell className = {"tableCell" + newCases + newDeaths} key={column.id} align={column.align}>
                           {column.format && typeof value === 'number' ? column.format((value)) : <Link to = {'/' + value}>{value}</Link> }
                         </TableCell>
                       );
                     }
                     else{
                       return (
-                        <TableCell className = "tableCell" key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number' ? column.format((value)) : value !== null ? lib.numberWithCommas(value): value}
+                        <TableCell className = {"tableCell" + newCases + newDeaths} key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number' ? column.format((value)) : value !== null && column.id !== "time" ? lib.numberWithCommas(value): column.id === "time" ? lib.getTime(value) : value}
                         </TableCell>
                       );
                     }

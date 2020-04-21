@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import * as lib from './lib'
 
 // Changes XML to JSON
 function xmlToJson(xml) {
@@ -90,7 +91,7 @@ class RssSection extends Component {
                                     {/* <img src = "./images/love.jpg" className = "blogimage"/> */}
                                     <span className = "blogtype">Health</span>
                                     <span className = "blogheading"><a href = {rss.link['#text']} target="_blank">{rss.title['#text']}</a></span>
-                                    <span className = "blogdescription">{rss.description['#text']}</span>
+                                    <span className = "blogdescription">{lib.stripHtml(rss.description['#text'])}</span>
                                     <span className = "blogdetails">
                                         <span className = "blogbyanddate">POSTED BY: {rss['a10:author']['a10:name']['#text'] === " " ? <a href = {this.state.rssFeedWHO.rss.channel.link['#text']} target="_blank">WHO</a> : rss['a10:author']['a10:name']['#text']}</span>
                                         <span className = "blogcomments">Date: {rss.pubDate['#text']}</span>

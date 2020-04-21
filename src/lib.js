@@ -19,3 +19,21 @@ export const formatDateT = (date) => {
     } 
     return yyyy + '-' + mm + '-' + dd;
 }
+
+export const getTime = (value) => {
+    var time = value.split('T')
+    // console.log(time)
+    return time[1]
+}
+
+export const getDate = (value) => {
+    var time = value.split('T')
+    // console.log(time)
+    return time[0]
+}
+
+export const stripHtml = (html) =>{
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}

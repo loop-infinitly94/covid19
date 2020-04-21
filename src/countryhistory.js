@@ -31,9 +31,12 @@ class CountryHistory extends Component {
     componentDidMount(){
         // console.log(this.props)
         // var country = this.props.currentCountry.toLowerCase();
-        this.setState({country: this.props.currentCountry.toLowerCase()})
         var country = this.props.currentCountry.toLowerCase();
-        var currentDate = lib.formatDateT(new Date())
+        var currentDate = lib.formatDateT(this.props.selectedDate)
+        this.setState({country: this.props.currentCountry.toLowerCase(),
+            date: currentDate
+        })
+
         this.setState({isLoading: true})
         axios.get("https://covid-193.p.rapidapi.com/history?day="+currentDate+"&country="+country, {
             "method": "GET",
@@ -57,10 +60,10 @@ class CountryHistory extends Component {
         // console.log(prevProps, 'prePRops', this.state, 'state', this.props, 'propsthis')
             this.setState({country: this.props.currentCountry.toLowerCase()})
             var country = this.props.currentCountry.toLowerCase();
-            var currentDate = lib.formatDateT(new Date())
+            var currentDate = lib.formatDateT(this.state.date)
             
             this.setState({country: this.props.currentCountry.toLowerCase()})
-        this.setState({isLoading: true})
+            this.setState({isLoading: true})
 
             axios.get("https://covid-193.p.rapidapi.com/history?day="+currentDate+"&country="+country, {
                 "method": "GET",
@@ -76,6 +79,29 @@ class CountryHistory extends Component {
                 }
             })
         }
+        if(this.state.date !== this.props.selectedDate){
+            // console.log(this.props.selectedDate)
+                // var country = this.props.currentCountry.toLowerCase();
+            var currentDate = lib.formatDateT(this.props.selectedDate)
+            
+            // this.setState({country: this.props.currentCountry.toLowerCase()})
+            this.setState({date: this.props.selectedDate})
+            this.setState({isLoading: true})
+
+            axios.get("https://covid-193.p.rapidapi.com/history?day="+currentDate+"&country="+this.state.country, {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "covid-193.p.rapidapi.com",
+                    "x-rapidapi-key": "d57969ed8amsh05ce00a7d1d6949p1fc6d8jsn2cff508d63aa"
+                }
+            }).then((response)=>{
+    
+                if(response.status === 200){
+                    this.setState({summaryData: response.data.response})
+                    this.setDataForTable();
+                }
+            })
+            }
     }
 
     setDataForTable(){

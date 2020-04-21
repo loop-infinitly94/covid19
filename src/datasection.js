@@ -301,18 +301,18 @@ class DataSection extends Component {
                     return (<div className = "Container">
                         <WorldDetails details = {this.state.worldSummary}/>
                         <div className = "comboSelect"><CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/></div>
-                        <div className="summaryDate">
-                                World Details
-                        </div>
+                        <span className="summaryDate">
+                        <p>World Detials</p>
+                        </span>
                     <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/></div>)
                 }}/>
                 <Route exact path={'/All'} render={() => { 
                     return (<div className = "Container">
                         <WorldDetails details = {this.state.worldSummary}/>
                         <div className = "comboSelect"><CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/></div>
-                        <div className="summaryDate">
-                                World Details
-                        </div>
+                        <span className="summaryDate">
+                        <p>World Detials</p>
+                        </span>
                     <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/></div>)
                 }}/></div>
                 :
@@ -322,9 +322,9 @@ class DataSection extends Component {
                     
                     
                     <div className = "comboSelect"><CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/></div>
-                    <div className="summaryDate">
-                            World Detials
-                    </div>
+                    <span className="summaryDate">
+                            <p>World Detials</p>
+                    </span>
                     <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/>
                 </div>)}} /> }
                 <RssSection/>

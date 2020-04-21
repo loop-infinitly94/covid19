@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
+import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
+
 import * as lib from './lib';
 import CountryHistory from './countryhistory';
 
@@ -25,6 +29,12 @@ const useStyles = makeStyles({
   });
 
 export default function CountryNormal(props) {
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
     // console.log(props);
@@ -80,7 +90,7 @@ export default function CountryNormal(props) {
           <div className = "summary2">
             <Card className={'SummaryContianer1' + ' ' +classes.root}>
             <CardContent className = "Cases commonCard">
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                <Typography className={classes.title}  gutterBottom>
                 Newly Confirmed
                 </Typography>
                 <Typography variant="h5" component="h2">
@@ -89,7 +99,7 @@ export default function CountryNormal(props) {
                 
             </CardContent>
             <CardContent className = "Death commonCard">
-                <Typography className={classes.pos} color="textSecondary">
+                <Typography className={classes.pos} >
                 New Deaths
                 </Typography>
                 <Typography variant="h5" component="h2">
@@ -111,10 +121,19 @@ export default function CountryNormal(props) {
           </div>
           </div>
           <div className = "countrySummary">
-              <div className="summaryDate">
-                    Today's Update  - {props.currentRow.country}
+              <div className = "datePicker">
+                <span> Show Summary of Date - </span>
+              <DatePicker
+                selected={selectedDate}
+                onChange={handleDateChange}
+                dateFormat = {"yyyy-MM-dd"}
+                maxDate = {new Date()}
+              />
               </div>
-              <CountryHistory currentCountry = {props.currentRow.country}/>
+              <div className="summaryDate">
+              <p>Per Day Update {props.currentRow.country} - {lib.formatDateT(selectedDate)}</p>
+              </div>
+              <CountryHistory currentCountry = {props.currentRow.country} selectedDate = {selectedDate}/>
             </div>
       </div>
   );

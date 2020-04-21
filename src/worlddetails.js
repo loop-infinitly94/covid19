@@ -71,7 +71,7 @@ export default function WorldDetils(props) {
         <div className = "summary2">
           <Card className={'SummaryContianer1' + ' ' +classes.root}>
           <CardContent className = "Cases commonCard">
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} gutterBottom>
               Newly Confirmed
               </Typography>
               <Typography variant="h5" component="h2">
@@ -80,7 +80,7 @@ export default function WorldDetils(props) {
               
           </CardContent>
           <CardContent className = "Death commonCard">
-              <Typography className={classes.pos} color="textSecondary">
+              <Typography className={classes.pos}>
               New Deaths
               </Typography>
               <Typography variant="h5" component="h2">
