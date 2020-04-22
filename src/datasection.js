@@ -10,6 +10,7 @@ import CountryNormal from './countrydetailsnormal'
 import CountrySelect from './search';
 import { useLocation } from 'react-router-dom'
 import RssSection from './rsssection';
+import HandleUrl from './handleurl'
 
 
 const columns = [
@@ -39,6 +40,7 @@ class DataSection extends Component {
         super(props)
         this.state = {
             isLoading: true,
+            isLoadingCountry: true,
             summaryData: [],
             tableRow: [],
             countryData: [],
@@ -83,7 +85,7 @@ class DataSection extends Component {
         }).then((response) => {
             // console.log(response)
             if(response.status === 200){
-                this.setState({countrySlug: response.data.response})
+                this.setState({countrySlug: response.data.response, isLoadingCountry: false})
             }
         })
         // https://bing.com/covid/data
@@ -254,7 +256,7 @@ class DataSection extends Component {
     // }
 
     componentDidUpdate(prevState, prevProps){
-        // console.log(prevState, prevProps, this.state)
+        console.log(prevState, prevProps, this.state)
         if(prevProps.searchValue !== this.state.searchValue){
             this.setState({tableRow: this.filterTable()})
         }
@@ -284,7 +286,11 @@ class DataSection extends Component {
     render() {
         // console.log(this.state, this.props)
         // let location = useLocation();
-        // console.log(location.pathname);
+        // console.log(this.state.countrySlug, window.location.pathname.split('/'), this.state.countrySlug.includes(window.location.pathname.split('/')[1]));
+        var currentRow = (localStorage.getItem('currentRow')) !== null ?  JSON.parse(localStorage.getItem('currentRow')) : this.state.currentRow;
+        var currentPath =  currentRow.country === window.location.pathname.split('/')[1]? window.location.pathname : '/404';
+        // console.log(currentPath);
+
         // return <span>Path : {location.pathname}</span>
         return (
             <LoadingOverlay
@@ -316,7 +322,7 @@ class DataSection extends Component {
                     <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/></div>)
                 }}/></div>
                 :
-                <Route exact path={window.location.pathname} render={() => {
+                <Route exact path={currentPath} render={() => {
                     return (<div className = "Container">  
                     <CountryNormal currentRow = {(localStorage.getItem('currentRow')) !== null ?  JSON.parse(localStorage.getItem('currentRow')) : this.state.currentRow }/>
                     
@@ -327,8 +333,11 @@ class DataSection extends Component {
                     </span>
                     <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/>
                 </div>)}} /> }
+                <Route path = {'/404'} key="404PAGE" component={HandleUrl}/>
                 <RssSection/>
-                </div>: null}
+                </div>
+                :
+                 null}
             </LoadingOverlay>
         );
     }

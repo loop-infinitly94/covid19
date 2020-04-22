@@ -10,9 +10,12 @@ function App() {
   return (
     <div className="App">
       <div className = "mainData">
-        <Header/>
+
         <Router>
-          <DataSection/>
+          <Header/>
+          <Switch>
+            <DataSection/>
+          </Switch>
         </Router>
         <Footer/>
 
