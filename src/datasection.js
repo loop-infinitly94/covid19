@@ -340,7 +340,7 @@ class DataSection extends Component {
                  null}
                  <Route path = {'/newsfeeds'} key="newsFeed" component={RssSection}/>
 
-<Route path = {'/404'} key="404PAGE" component={HandleUrl}/>
+                <Route path = {'/404'} key="404PAGE" component={HandleUrl}/>
             </LoadingOverlay>
         );
     }
