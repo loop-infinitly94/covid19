@@ -333,8 +333,10 @@ class DataSection extends Component {
                     </span>
                     <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/>
                 </div>)}} /> }
+                <Route path = {'/newsfeeds'} key="newsFeed" component={RssSection}/>
+
                 <Route path = {'/404'} key="404PAGE" component={HandleUrl}/>
-                <RssSection/>
+               
                 </div>
                 :
                  null}
