@@ -454,6 +454,7 @@ span.hamburger {
     display: block;
     float: right;
     padding: 16px;
+    color: white;
   }
 
   #menu{
