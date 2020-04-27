@@ -44,7 +44,7 @@ function Header(props) {
         <div className = "Header">
             <span className = "headerImage"><Link to="/"><img src = "./TheCovidAnalysis_V1_Header.png"/></Link></span>
             {/* <span className = "headerTitle">The Covid Analysis</span> */}
-            <span className = "hamburger" id = "hamburger" onClick = {(ev) => toggleMenu(ev)}>&#x2630;</span>
+            <span className = "hamburger" id = "hamburger" onClick = {(ev) => toggleMenu(ev)}><img src = "./menu.svg"/></span>
             <div className = "menu" id = "menu">
                 <ul>
                     <li>
