@@ -106,8 +106,6 @@ class DataSection extends Component {
 
         this.refreshData()
         
-        
-        
     }
 
     refreshData(){
@@ -257,7 +255,7 @@ class DataSection extends Component {
     // }
 
     componentDidUpdate(prevState, prevProps){
-        console.log(prevState, prevProps, this.state)
+        // console.log(prevState, prevProps, this.state)
         if(prevProps.searchValue !== this.state.searchValue){
             this.setState({tableRow: this.filterTable()})
         }

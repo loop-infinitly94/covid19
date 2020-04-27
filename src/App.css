@@ -414,6 +414,10 @@ span.headerImage {
   image-rendering: pixelated;
 }
 
+span.hamburger {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   .Summary,
   .summary2,
@@ -445,5 +449,24 @@ span.headerImage {
   .eacharticle{
     margin: 12px 0;
   }
+
+  span.hamburger {
+    display: block;
+    float: right;
+    padding: 16px;
+  }
+
+  #menu{
+    display: none;
+    float: unset;
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    z-index: 5;
+    background-color: black;
+  }
   
+  span.headerImage{
+    width: 70%;
+  }
 }

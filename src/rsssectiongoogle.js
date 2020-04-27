@@ -12,7 +12,7 @@ class RssSectionGoogle extends Component {
     }
     componentDidMount(){
         axios.get("https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml").then(async (response) => {
-            console.log(response)
+            // console.log(response)
 
             var parser = new DOMParser();
             var xmlDoc = await parser.parseFromString(response.data,"text/xml");
