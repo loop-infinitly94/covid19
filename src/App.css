@@ -180,7 +180,7 @@ a.active {
   display: inline-block;
     color: white;
     text-align: center;
-    padding: 15px 16px;
+    padding: 16px;
     text-decoration: none;
 }
 
@@ -316,7 +316,7 @@ img.blogimage {
 span.blogtype {
   display: block;
   width: fit-content;
-  background-color: red;
+  background-color: burlywood;
   padding: 0 5px;
   border-radius: 2px;
 }
@@ -380,6 +380,7 @@ span.myfeed {
   box-sizing: border-box;
   background: #3C454D !important;
   color: white;
+  margin: 20px 0;
 }
 
 .datePicker {

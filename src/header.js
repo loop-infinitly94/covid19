@@ -13,7 +13,10 @@ function Header(props) {
                     <Link className = {window.location.pathname === '/' ? "active" : "notAcive"} to="/">Live Updates </Link>
                     </li>
                     <li>
-                    <Link className = {window.location.pathname === '/newsfeeds' ? "active" : "notAcive"} to="/newsfeeds">News Feed </Link>
+                    <Link className = {window.location.pathname === '/newsfeedsworld' ? "active" : "notAcive"} to="/newsfeedsworld">World News</Link>
+                    </li>
+                    <li>
+                    <Link className = {window.location.pathname === '/newsfeedswho' ? "active" : "notAcive"} to="/newsfeedswho">WHO Updates</Link>
                     </li>
                 </ul>
             </div>

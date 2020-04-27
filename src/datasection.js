@@ -9,7 +9,8 @@ import CountryDetails from './dialog';
 import CountryNormal from './countrydetailsnormal'
 import CountrySelect from './search';
 import { useLocation } from 'react-router-dom'
-import RssSection from './rsssection';
+import RssSectionWHO from './rsssection';
+import RssSectionWorld from './rsssectiongoogle';
 import HandleUrl from './handleurl'
 
 
@@ -310,7 +311,11 @@ class DataSection extends Component {
                         <span className="summaryDate">
                         <p>World Detials</p>
                         </span>
-                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/></div>)
+                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/>
+                    
+                    {/* <RssSectionWorld/> */}
+                    </div>)
+                    
                 }}/>
                 <Route exact path={'/All'} render={() => { 
                     return (<div className = "Container">
@@ -320,7 +325,9 @@ class DataSection extends Component {
                         <p>World Detials</p>
                         </span>
                     <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/></div>)
-                }}/></div>
+                }}/>
+                <RssSectionWorld/>
+                </div>
                 :
                 <Route exact path={currentPath} render={() => {
                     return (<div className = "Container">  
@@ -338,7 +345,8 @@ class DataSection extends Component {
                 </div>
                 :
                  null}
-                 <Route path = {'/newsfeeds'} key="newsFeed" component={RssSection}/>
+                 <Route path = {'/newsfeedswho'} key="newsFeed" component={RssSectionWHO}/>
+                 <Route path = {'/newsfeedsworld'} key="newsFeedgoogle" component={RssSectionWorld}/>
 
                 <Route path = {'/404'} key="404PAGE" component={HandleUrl}/>
             </LoadingOverlay>
