@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <div className = "mainData">
 
-        <Router>
+        <Router basename = "/covid19/">
           <Header/>
           <Switch>
             <DataSection/>

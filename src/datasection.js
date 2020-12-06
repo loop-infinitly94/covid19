@@ -301,7 +301,7 @@ class DataSection extends Component {
                 {/* {Object.keys(this.state.currentRow).length > 0 ? <CountryDetails onCloseDialog = {this.onCloseDialog.bind(this)} currentRow = {this.state.currentRow} tableSelection = {this.state.tableSelection}/> : null} */}
                 {!this.state.isLoading ? 
                 <div id = "DataSource" >
-                {window.location.pathname === '/' ||  window.location.pathname === '/All'? 
+                {window.location.pathname === '/' ||  window.location.pathname === '/All' || window.location.pathname === '/covid19/'? 
                 <div><Route exact path={'/'} render={() => { 
                     return (<div className = "Container">
                         <WorldDetails details = {this.state.worldSummary}/>
