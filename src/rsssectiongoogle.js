@@ -54,17 +54,17 @@ class RssSectionGoogle extends Component {
                     <div className = "blogpost" >
                     <span className = "myfeed">World News - The NewYork Times</span>
                         {this.state.rssFeedWHO.rss.channel.item.map((rss, index) => {
-
+                            console.log(rss)
                             return (
                                 <div key = {index} className = "eacharticle">
                                     {/* <img src = "./images/love.jpg" className = "blogimage"/> */}
                                     <span className = "blogtype">Health</span>
-                                    <span className = "blogheading"><a href = {rss.link['#text']} target="_blank">{rss.title['#text']}</a></span>
+                                    <span className = "blogheading"><a href = {rss.link['#text'] !== undefined ? rss.link['#text'] : "#"} target="_blank">{rss.title['#text']}</a></span>
                                     <span className = "blogdescription">{lib.stripHtml(rss.description['#text'])}</span>
-                                    <span className = "blogdetails">
+                                    {/* <span className = "blogdetails">
                                         <span className = "blogbyanddate">POSTED BY: {rss['author']['#text'] === " " ? <a href = {this.state.rssFeedWHO.rss.channel.link['#text']} target="_blank">The NewYork Times</a> : rss['author']['#text']}</span>
                                         <span className = "blogcomments">Date: {rss.pubDate['#text']}</span>
-                                    </span>
+                                    </span> */}
                                 </div>
                             )
                         })}
