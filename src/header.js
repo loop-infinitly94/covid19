@@ -48,7 +48,7 @@ function Header(props) {
             <div className = "menu" id = "menu">
                 <ul>
                     <li>
-                    <Link className = {window.location.pathname === '/live' ? "active" : "notAcive"} to="/live">Live Updates </Link>
+                    <Link className = {window.location.pathname === '/' ? "active" : "notAcive"} to="/">Live Updates </Link>
                     </li>
                     <li>
                     <Link className = {window.location.pathname === '/newsfeedsworld' ? "active" : "notAcive"} to="/newsfeedsworld">World News</Link>

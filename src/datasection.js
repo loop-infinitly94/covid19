@@ -315,19 +315,6 @@ class DataSection extends Component {
                     </div>)
                     
                 }}/>
-                <Route exact path={'/live'} render={() => { 
-                    return (<div className = "Container">
-                        <WorldDetails details = {this.state.worldSummary}/>
-                        <div className = "comboSelect"><CountrySelect  countrySlug = {this.state.countrySlug}  onChangeSearch = {this.onChangeSearch.bind(this)}/></div>
-                        <span className="summaryDate">
-                        <p>World Detials</p>
-                        </span>
-                    <Table rows = {this.state.tableRow} columns = {columns} getCurrentSelectedRow = {this.getCurrentSelectedRow.bind(this)} defaultSort = {"totalCases"} pagination = {10}/>
-                    
-                    {/* <RssSectionWorld/> */}
-                    </div>)
-                    
-                }}/>
                 <Route exact path={'/All'} render={() => { 
                     return (<div className = "Container">
                         <WorldDetails details = {this.state.worldSummary}/>
