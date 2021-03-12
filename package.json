@@ -1,7 +1,6 @@
 {
   "name": "covid-app",
   "version": "0.1.0",
-  "homepage": "https://loop-infinitly94.github.io/covid19/",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.6.1",
